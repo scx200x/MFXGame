@@ -8,21 +8,15 @@ using UnityEngine.UI;
 public class TestProto : MonoBehaviour
 {
     public string FileName = "sjl.txt";
-
     private string DirPath = Application.streamingAssetsPath + "/";
-
     private string FilePath;
-
+    
     public Button WriteBtn;
     public Button ReadBtn;
     
     // Start is called before the first frame update
     void Start()
     {
-        
-        
-        
-        
         if (!Directory.Exists(DirPath))
         {
             Directory.CreateDirectory(DirPath);

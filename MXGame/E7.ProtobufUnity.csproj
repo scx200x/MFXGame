@@ -306,7 +306,7 @@
       <HintPath>D:\Program Files\2022.3.17f1c1\Editor\Data\PlaybackEngines\WindowsStandaloneSupport\UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="Google.Protobuf">
-      <HintPath>D:\Worker\UnityWorker\MXGame\Assets\Plugin\Google.Protobuf.dll</HintPath>
+      <HintPath>D:\Worker\UnityWorker\MFXGame\MFXGame\MXGame\Assets\Plugin\Google.Protobuf.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>D:\Program Files\2022.3.17f1c1\Editor\Data\NetStandard\ref\2.1.0\netstandard.dll</HintPath>
@@ -675,10 +675,10 @@
       <HintPath>D:\Program Files\2022.3.17f1c1\Editor\Data\NetStandard\compat\2.1.0\shims\netfx\System.Xml.Serialization.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.UI">
-      <HintPath>D:\Worker\UnityWorker\MXGame\Library\ScriptAssemblies\UnityEditor.UI.dll</HintPath>
+      <HintPath>D:\Worker\UnityWorker\MFXGame\MFXGame\MXGame\Library\ScriptAssemblies\UnityEditor.UI.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
-      <HintPath>D:\Worker\UnityWorker\MXGame\Library\ScriptAssemblies\UnityEngine.UI.dll</HintPath>
+      <HintPath>D:\Worker\UnityWorker\MFXGame\MFXGame\MXGame\Library\ScriptAssemblies\UnityEngine.UI.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

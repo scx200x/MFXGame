@@ -19,6 +19,10 @@ public class TestProto : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        
+        
+        
+        
         if (!Directory.Exists(DirPath))
         {
             Directory.CreateDirectory(DirPath);

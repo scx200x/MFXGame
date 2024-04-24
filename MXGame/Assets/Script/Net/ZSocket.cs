@@ -158,7 +158,7 @@ public class ZSocket : IDisposable, ISocket
             return;
         }
 
-        Int32 service_id = IPAddress.HostToNetworkOrder(BitConverter.ToInt32(this.m_recvBuffer, 8));
+        Int32 service_id = IPAddress.HostToNetworkOrder(BitConverter.ToInt32(this.m_recvBuffer, 2));
         int startIndex = 18; // 子数组开始的位置（索引）
         int length = this.m_lastRecvPkgSize - 18; // 子数组的长度
         byte[] subArray = new byte[length];

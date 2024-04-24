@@ -62,12 +62,13 @@ public class Login : MonoBehaviour
     public void OnExit()
     {
         AudioManager.GetInstance().PlaySound();
+        GameServerNetProcess.Instance.CloseConnect();
         Application.Quit();
     }
 
-    public void OnNetAccountLoginResp(object package)
+    public void OnNetAccountLoginResp(params object[] package)
     {
-        ZPackage Package = (ZPackage)(package);
+        ZPackage Package = (ZPackage)(package[0]);
         
         Cs.AccLoginResponse sjl = Cs.AccLoginResponse.Parser.ParseFrom(Package.GetArray());
 
@@ -78,9 +79,9 @@ public class Login : MonoBehaviour
         }
     }
 
-    public void OnNetRoleLoginResp(object package)
+    public void OnNetRoleLoginResp(params object[] package)
     {
-        ZPackage Package = (ZPackage)(package);
+        ZPackage Package = (ZPackage)(package[0]);
         
         Cs.RoleLoginResponse rjl = Cs.RoleLoginResponse.Parser.ParseFrom(Package.GetArray());
 

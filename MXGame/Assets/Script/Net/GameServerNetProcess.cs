@@ -50,13 +50,9 @@ public class GameServerNetProcess : SingltionCreator<GameServerNetProcess>
     // Update is called once per frame
     public void Update()
     {
-        Queue<ZPackage> netQueue = socket.GetNetQueue();
-
-        while (netQueue.Count > 0)
+        for (ZPackage zpackage = socket.Recv(); zpackage != null; zpackage = socket.Recv())
         {
-            ZPackage package = netQueue.Dequeue();
-            
-            EventMsgCenter.SendNetMsg(package.GetServiceID(),package);
+            EventMsgCenter.SendNetMsg(zpackage.GetServiceID(),zpackage);
         }
     }
 

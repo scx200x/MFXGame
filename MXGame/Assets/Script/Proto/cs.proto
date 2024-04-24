@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+
+package cs;
+
+
+enum CS_OPERATION_TYPE {
+	CS_OPERATION_TYPE_NONE = 0;
+	CS_OPERATION_TYPE_ACCLOGIN = 1;
+	CS_OPERATION_TYPE_ROLELOGIN = 2;
+	CS_OPERATION_TYPE_BEGIN_BATTLE = 3;
+	CS_OPERATION_TYPE_END_BATTLE = 4;
+	CS_OPERATION_TYPE_USE_HERO = 5;
+};
+
+message AccLoginRequest {
+	string account_id = 1;
+};
+
+message AccSimpleInfo {
+	int64 role_id = 1;
+	string name = 2;
+};
+
+message AccLoginResponse {
+	repeated AccSimpleInfo List = 1;
+	string account_id = 2;
+};
+
+message RoleLoginRequest {
+	int64 role_id = 1;
+};
+
+message HeroInfo {
+	int32 hero_id = 1;
+};
+
+message RoleLoginResponse {
+	int64 role_id = 1;
+	string name = 2;
+	repeated HeroInfo HeroList = 3;
+};
+

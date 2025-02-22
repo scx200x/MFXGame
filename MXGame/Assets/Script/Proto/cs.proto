@@ -4,13 +4,20 @@ syntax = "proto3";
 package cs;
 
 
+enum CS_ERROR_CODE {
+	CS_ERROR_CODE_NONE = 0;
+	CS_ERROR_CODE_DB_ERROR = 1;
+	CS_ERROR_CODE_NETWORK_ERROR = 2;
+	CS_ERROR_CODE_INVALIDE_ROLEID = 3;
+};
+
 enum CS_OPERATION_TYPE {
 	CS_OPERATION_TYPE_NONE = 0;
 	CS_OPERATION_TYPE_ACCLOGIN = 1;
 	CS_OPERATION_TYPE_ROLELOGIN = 2;
 	CS_OPERATION_TYPE_BEGIN_BATTLE = 3;
-	CS_OPERATION_TYPE_END_BATTLE = 4;
-	CS_OPERATION_TYPE_USE_HERO = 5;
+	CS_OPERATION_TYPE_END_BATTLE = 4;	//
+	CS_OPERATION_TYPE_TEAM_HERO = 5; //队伍信息
 };
 
 message AccLoginRequest {
@@ -20,6 +27,8 @@ message AccLoginRequest {
 message AccSimpleInfo {
 	int64 role_id = 1;
 	string name = 2;
+	int32 game_time = 3;
+	int32 difficult = 4;
 };
 
 message AccLoginResponse {
@@ -31,13 +40,59 @@ message RoleLoginRequest {
 	int64 role_id = 1;
 };
 
+message PropertyItem {
+	int32 prop_id = 1;
+	int32 prop_val = 2;
+};
+
 message HeroInfo {
 	int32 hero_id = 1;
+	int64 inst_id = 2;
+	int32 level = 3;
+	repeated int32 equip_list = 4;
+	repeated PropertyItem prot_list = 5; 
+};
+
+message FightHeroTeamInfo {
+	int32 team_id = 1;
+	repeated int64 hero_list = 2; 
 };
 
 message RoleLoginResponse {
 	int64 role_id = 1;
 	string name = 2;
 	repeated HeroInfo HeroList = 3;
+	repeated FightHeroTeamInfo TeamInfoList = 4;
 };
 
+message BeginBattleResponse {
+	int32 reserved = 1;
+};
+
+message BeginBattleRequest {
+	int32 team_id = 1;
+	int32 map_id = 2;
+};
+
+message EndBattleResponse {
+	int32 reserved = 1;
+};
+
+message EndBattleRequest {
+	int32 team_id = 1;
+	int32 map_id = 2;
+	int32 box_id = 3;
+};
+
+//每次更新所有的位置信息
+message TeamHeroResponse {
+	int32 team_id = 1;
+	repeated int64 hero_id = 2;
+};
+
+//位置放置信息
+message TeamHeroRequest {
+	int32 team_id = 1;
+	int64 hero_id = 2;
+	int32 pos_id = 3; //如果是-1表示卸下
+};

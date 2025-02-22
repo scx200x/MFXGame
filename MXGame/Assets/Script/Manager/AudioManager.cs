@@ -2,18 +2,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AudioManager : ManagerBase
+public class AudioManager : SingltionCreator<AudioManager>
 {
     private float volumeNum;
     private float soundNum;
     private AudioSource volumeSource;
     private AudioSource soundSource;
-
-    private static AudioManager Instance;
-
+    
     public AudioManager()
     {
         volumeNum = soundNum = 0.5f;
+        
+        Record record = SaveSystem.LoadRecord();
+
+        if (record != null)
+        {
+            VolumeNum = record.VolumePercent;
+            SoundNum = record.SoundEffectPercent;
+        }
     }
 
     public float VolumeNum
@@ -48,7 +54,7 @@ public class AudioManager : ManagerBase
         get { return soundSource; }
     }
     
-    public override void OnInit()
+    public void OnInit()
     {
         VolumeSource = null;
         SoundSource = null;
@@ -72,21 +78,39 @@ public class AudioManager : ManagerBase
             soundSource.Play();
         }
     }
+
+    public void PlayVolume()
+    {
+        if (VolumeSource)
+        {
+            VolumeSource.volume = volumeNum;
+            VolumeSource.loop = true;
+            VolumeSource.Play();
+        }
+    }
+
+    public void SetVolumeSourceRes(string resPath)
+    {
+        ResourceInfo resourceInfo = ResourcesManager.GetInstance().LoadAsset(resPath);
+
+        if (resourceInfo.LoadObj != null)
+        {
+            VolumeSource.clip = (AudioClip)resourceInfo.LoadObj;
+        }
+    }
+    
+    public void SetSoundSourceRes(string resPath)
+    {
+        ResourceInfo resourceInfo = ResourcesManager.GetInstance().LoadAsset(resPath);
+
+        if (resourceInfo.LoadObj != null)
+        {
+            SoundSource.clip = (AudioClip)resourceInfo.LoadObj;
+        }
+    }
     
     public static AudioManager GetInstance()
     {
-        if (Instance == null)
-        {
-            Instance = new AudioManager();
-            Record record = SaveSystem.LoadRecord();
-
-            if (record != null)
-            {
-                Instance.VolumeNum = record.VolumePercent;
-                Instance.SoundNum = record.SoundEffectPercent;
-            }
-        }
-
         return Instance;
     }
 }

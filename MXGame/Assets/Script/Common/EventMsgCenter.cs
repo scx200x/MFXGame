@@ -5,12 +5,17 @@ using UnityEngine;
 public enum EventName
 {
 	None = 0,
+	LoadingOver = 1,
+	GameOver = 2,
+	Connected = 3,
 }
 
 public enum NetEventName
 {
 	AccountLogin = 1,
 	RoleLogin = 2,
+	EndBattle = 4,
+	TeamChange = 5,
 }
 
 public delegate void BoardcastCallBack(params object[] objs);

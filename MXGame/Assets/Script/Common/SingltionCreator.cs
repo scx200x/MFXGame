@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class SingltionCreator<T> where T : class,new() {
+	
 	private static T instance;
-
+	
 	public static T Instance
 	{
 		get
@@ -45,7 +46,8 @@ public class SingltionManager
 
 		if(!SingltionList.ContainsKey(objType))
 		{
-			singltionOBJ = System.Activator.CreateInstance(System.Type.GetType(objType));
+			System.Type type = System.Type.GetType(objType);
+			singltionOBJ = System.Activator.CreateInstance(type);
 			SingltionList.Add(objType,singltionOBJ);
 		}
 

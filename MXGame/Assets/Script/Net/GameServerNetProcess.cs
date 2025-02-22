@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Threading;
 using Cs;
 using Google.Protobuf;
 using UnityEngine;
@@ -28,12 +29,15 @@ public class GameServerNetProcess : SingltionCreator<GameServerNetProcess>
     private const string ipAddress = "1.14.209.47";
     private const int port = 20000;
     private ConnectionStatus connectionStatus = ConnectionStatus.None;
-
     private string accountID;
+    private Thread netThread;
     
     public GameServerNetProcess()
     {
         socket = new ZSocket();
+
+        netThread = new Thread(ConnectGameServer);
+        netThread.Start();
     }
     
     public string AccountID
@@ -68,10 +72,9 @@ public class GameServerNetProcess : SingltionCreator<GameServerNetProcess>
         
         if (socket.Connect(ipAddress, port))
         {
+            EventMsgCenter.SendMsg(EventName.Connected);
             ZNetPeer peer = new ZNetPeer(socket, true);
             connectionStatus = ConnectionStatus.Connected;
-
-            SendAccLoginRequest();
         }
         else
         {
@@ -103,6 +106,50 @@ public class GameServerNetProcess : SingltionCreator<GameServerNetProcess>
         
         byte[] tosend = sr.ToByteArray();
         int serviceId = 2;
+
+        socket.Send(new ZPackage(serviceId, tosend, tosend.Length));
+    }
+
+    public void SendBeginBattleRequest(Int32 teamID, Int32 mapID)
+    {
+        Cs.BeginBattleRequest sr = new BeginBattleRequest()
+        {
+            TeamId = teamID,
+            MapId = mapID
+        };
+        
+        byte[] tosend = sr.ToByteArray();
+        int serviceId = 3;
+
+        socket.Send(new ZPackage(serviceId, tosend, tosend.Length));
+    }
+
+    public void SendEndBattleRequest(Int32 teamID, Int32 mapID, Int32 boxID)
+    {
+        Cs.EndBattleRequest sr = new EndBattleRequest()
+        {
+            TeamId = teamID,
+            MapId = mapID,
+            BoxId = boxID
+        };
+        
+        byte[] tosend = sr.ToByteArray();
+        int serviceId = 4;
+
+        socket.Send(new ZPackage(serviceId, tosend, tosend.Length));
+    }
+
+    public void SendTeamHeroRequest(Int32 teamID, Int64 instID, Int32 posID)
+    {
+        Cs.TeamHeroRequest sr = new TeamHeroRequest()
+        {
+            TeamId = teamID,
+            HeroId = instID,
+            PosId = posID
+        };
+        
+        byte[] tosend = sr.ToByteArray();
+        int serviceId = 5;
 
         socket.Send(new ZPackage(serviceId, tosend, tosend.Length));
     }

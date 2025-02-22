@@ -3,14 +3,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public class GameData
+{
+    public int LevelID;
+}
+
 public class Game : MonoBehaviour
 {
     private static Game instance = null;
-    
+
     public static Game GetInstance()
     {
         return instance;
     }
+
+    public GameData gameData;
     
     private void Awake()
     {
@@ -29,5 +36,10 @@ public class Game : MonoBehaviour
     void Update()
     {
         GameServerNetProcess.Instance.Update();
+    }
+
+    private void OnDisable()
+    {
+        EventMsgCenter.SendMsg(EventName.GameOver);
     }
 }

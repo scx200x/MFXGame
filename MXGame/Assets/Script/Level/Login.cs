@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Login : MonoBehaviour
@@ -15,6 +16,8 @@ public class Login : MonoBehaviour
     public GameObject RecordObj;
     public GameRecord[] GameRecordItems;
 
+    public bool NetConnected = false;
+
 
     // Start is called before the first frame update
     void Start()
@@ -24,12 +27,14 @@ public class Login : MonoBehaviour
         
         EventMsgCenter.RegisterNetMsg(NetEventName.AccountLogin,OnNetAccountLoginResp,false);
         EventMsgCenter.RegisterNetMsg(NetEventName.RoleLogin,OnNetRoleLoginResp,false);
+        EventMsgCenter.RegisterGlobalMsg(EventName.Connected,Connected,false);
     }
 
     private void OnDisable()
     {
         EventMsgCenter.UnRegisterNetMsg(NetEventName.AccountLogin,OnNetAccountLoginResp);
         EventMsgCenter.UnRegisterNetMsg(NetEventName.RoleLogin,OnNetRoleLoginResp);
+        EventMsgCenter.UnRegisterMsg(EventName.Connected,Connected);
     }
 
     public void SetMsgBoxEnd()
@@ -41,14 +46,13 @@ public class Login : MonoBehaviour
     {
         AudioManager.GetInstance().PlaySound();
 
-        if (GameServerNetProcess.Instance.GetConnectStatus() == GameServerNetProcess.ConnectionStatus.None)
+        if (GameServerNetProcess.Instance.GetConnectStatus() == GameServerNetProcess.ConnectionStatus.Connected)
         {
-            GameServerNetProcess.Instance.ConnectGameServer();
+            GameServerNetProcess.Instance.SendAccLoginRequest();
         }
         else
         {
-            GameServerNetProcess.Instance.CloseConnect();
-            GameServerNetProcess.Instance.ConnectGameServer();
+            ShowError(ErrorMsgID.NetConnectNull);
         }
     }
 
@@ -75,6 +79,15 @@ public class Login : MonoBehaviour
         if (sjl != null)
         {
             GameServerNetProcess.Instance.AccountID = sjl.AccountId;
+            GameDataManager.Instance.AccountID = sjl.AccountId;
+
+            GameDataManager.Instance.ClearAccounts();
+            
+            foreach (var AccountInfo in sjl.List)
+            {
+                GameDataManager.Instance.AddAccount(AccountInfo.RoleId,AccountInfo.Name,AccountInfo.GameTime,AccountInfo.Difficult);
+            }
+            
             ShowRecordPanel(sjl);
         }
     }
@@ -87,8 +100,27 @@ public class Login : MonoBehaviour
 
         if (rjl != null)
         {
-            
+            GameDataManager.Instance.SetCurrentRole(rjl.RoleId);
+            HeroManager.Instance.Clear();
+
+            foreach (var heroInfo in rjl.HeroList)
+            {
+                HeroManager.Instance.AddHeroInfo(heroInfo);
+            }
+
+            foreach (var fightHeroTeamInfo in rjl.TeamInfoList)
+            {
+                HeroManager.Instance.AddTeam(fightHeroTeamInfo.TeamId,fightHeroTeamInfo);
+            }
+
+            StartCoroutine(SceneLoad("Scenes/Fight"));
         }
+    }
+
+    private IEnumerator SceneLoad(string sceneName)
+    {
+        yield return new WaitForSeconds(0);
+        SceneManager.LoadScene(sceneName);
     }
 
     private void ShowRecordPanel(Cs.AccLoginResponse sjl)
@@ -107,10 +139,31 @@ public class Login : MonoBehaviour
         }
     }
 
-    private void ShowError(ErrorMsgID id)
+    private void Connected(params object[] objects)
     {
-        ErrorMsg.text = global::ErrorMsg.ErrorMsgTable[id];
+        NetConnected = true;
+    }
+
+    private void ShowTips(TipsID ID)
+    {
+        ErrorMsg.text = global::TipsMsg.TipsMsgTable[ID];
         ErrorMsgObj.SetActive(true);
         ErrorMsgObj.GetComponent<DOTweenAnimation>().DORestart();
+    }
+
+    private void ShowError(ErrorMsgID ID)
+    {
+        ErrorMsg.text = global::ErrorMsg.ErrorMsgTable[ID];
+        ErrorMsgObj.SetActive(true);
+        ErrorMsgObj.GetComponent<DOTweenAnimation>().DORestart();
+    }
+
+    void Update()
+    {
+        if (NetConnected)
+        {
+            ShowTips(TipsID.NetConnected);
+            NetConnected = false;
+        }
     }
 }

@@ -68,4 +68,58 @@ public static class Utility
 
         }
     }
+
+    public static string GetNumberToString(int value)
+    {
+        string vs = "";
+        int index = 0;
+        
+        while (value > 0)
+        {
+            int v1 = (value % 1000) * (int)(Math.Pow(1000, index));
+
+            if (index > 0)
+            {
+                vs = v1 + "," + vs;
+            }
+            else
+            {
+                vs = v1 + vs;
+            }
+            
+            value = value - v1;
+        }
+
+        return vs;
+    }
+
+    public static string GetGameTime(Int32 seconds)
+    {
+        if (seconds < 0)
+        {
+            return "0天0时0分";
+        }
+
+        int days = seconds / (24 * 3600);  // 计算天数
+        seconds %= (24 * 3600);           // 剩余的秒数
+        int hours = seconds / 3600;          // 计算小时数
+        seconds %= 3600;                   // 剩余的秒数
+        int minutes = seconds / 60;          // 计算分钟数
+        
+        return $"{days}天{hours}时{minutes}分";
+    }
+
+    public static string GetRealGameTime(Int32 seconds)
+    {
+        if (seconds < 0)
+        {
+            return "";
+        }
+
+        int realDays = seconds / 60;
+        int years = realDays / 365;
+        realDays -= years * 365;
+        
+        return $"{years}年{realDays}天";
+    }
 }

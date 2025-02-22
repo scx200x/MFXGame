@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,27 +17,46 @@ public class GameRecord : MonoBehaviour
     public long RoleID
     {
         set { roleID = value;}
-        get { return RoleID; }
+        get { return roleID; }
     }
-    
+
+    private void Awake()
+    {
+        GameTimeTxt.text = "";
+        PlayTimeTxt.text = "";
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         EmptyObj.SetActive(true);
-        RoundImageObj.SetActive(false);
-        GameTimeTxt.text = "";
-        PlayTimeTxt.text = "";
-        roleID = 0;
+        RoundImageObj.SetActive(true);
     }
 
     public void Play()
     {
         AudioManager.GetInstance().PlaySound();
+        
+        if (GameServerNetProcess.Instance.GetConnectStatus() == GameServerNetProcess.ConnectionStatus.Connected)
+        {
+            GameServerNetProcess.Instance.SendRoleLoginRequest(RoleID);
+        }
     }
-
+    
     public void UpdateUI(Cs.AccSimpleInfo simpleInfo)
     {
-        simpleInfo.RoleId = simpleInfo.RoleId;
+        RoleID = simpleInfo.RoleId;
+
+        if (simpleInfo.GameTime > 0)
+        {
+            GameTimeTxt.text = "";
+            PlayTimeTxt.text = "";
+        }
+        else
+        {
+            PlayTimeTxt.text = Utility.GetGameTime(simpleInfo.GameTime);
+            GameTimeTxt.text = Utility.GetRealGameTime(simpleInfo.GameTime);
+        }
     }
     
 }

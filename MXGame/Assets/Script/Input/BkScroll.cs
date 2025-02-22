@@ -1,16 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Collections;
 using UnityEngine;
 
 public class BkScroll : MonoBehaviour
 {
-    const float MoveLength = 19f;
+    public float moveLength;
     public float Speed;
-    public GameObject Image1;
-    public GameObject Image2;
-
-    private int MoveNumber = 0;
-    public float MovedDis = 0f;
+    public List<GameObject> Images;
+    public float movedDis = 0f;
+    public float imageLength;
+    public float startPos;
+    
+    private int moveNumber = 0;
     
     // Start is called before the first frame update
     void Start()
@@ -23,21 +25,19 @@ public class BkScroll : MonoBehaviour
     {
         transform.position += Speed * Time.deltaTime * Vector3.right;
         
-        MovedDis -= Speed * Time.deltaTime;
+        movedDis -= Speed * Time.deltaTime;
 
-        if (MovedDis >= MoveLength)
+        if (movedDis >= moveLength)
         {
-            MoveNumber += 1;
-            MovedDis = 0f;
+            movedDis = 0f;
 
-            if (MoveNumber % 2 == 1)
-            {
-                Image1.transform.localPosition = new Vector3(19.2f * (MoveNumber + 1), 0, 0);
-            }
-            else
-            {
-                Image2.transform.localPosition = new Vector3(19.2f * (MoveNumber + 1), 0, 0);
-            }
+            moveNumber = moveNumber % Images.Count;
+
+            startPos = Images[moveNumber].transform.localPosition.x;
+            
+            Images[moveNumber].transform.localPosition = new Vector3(imageLength * Images.Count + startPos, Images[moveNumber].transform.localPosition.y, 0);
+
+            moveNumber += 1;
         }
     }
 }

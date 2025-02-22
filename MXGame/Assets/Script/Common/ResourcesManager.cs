@@ -132,7 +132,7 @@ public class AsycLoader
                 {
                     if(itor.Current.Value.ResourceRequest.isDone)
                     {
-                        ResourcesManager.Instance.SetAsset(itor.Current.Key,itor.Current.Value.ResourceRequest.asset);
+                        ResourcesManager.GetInstance().SetAsset(itor.Current.Key,itor.Current.Value.ResourceRequest.asset);
                         RemoveLoaderList.Add(itor.Current.Key);
                     }
                     else
@@ -219,6 +219,11 @@ public class ResourcesManager : SingltionCreateTinyUpdate<ResourcesManager>
     public delegate void LoadComplete(params object[] obj);
 
     private AsycLoader Loader;
+    
+    public static ResourcesManager GetInstance()
+    {
+        return Instance;
+    }
 
     public static void Destroy(UnityEngine.Object obj)
     {
@@ -230,14 +235,14 @@ public class ResourcesManager : SingltionCreateTinyUpdate<ResourcesManager>
         UnityEngine.Object.DestroyImmediate(obj);
     }
 
-    public void Init()
+    public ResourcesManager()
     {
-        Loader.Init();
         LoadingResDict = new Dictionary<string, ResourceInfo>();
         LoadedResDict = new Dictionary<string, ResourceInfo>(); 
         LoadCompleteCallBackDict = new Dictionary<string, List<LoadComplete>>();
+        Loader = new AsycLoader();
     }
-    
+
     public void SetAsset(string filePath,UnityEngine.Object asset)
     {
         ResourceInfo ResourceInfo;
@@ -286,11 +291,11 @@ public class ResourcesManager : SingltionCreateTinyUpdate<ResourcesManager>
         return resourceInfo;
     }
 
-    public void LoadAssetAsyc(string filePath,LoadComplete callBack = null, bool dontDestory = false)
+    public void LoadAssetAsyc(string filePath,LoadComplete callBack, bool dontDestory = false)
     {
         LoadInfo loadInfo;
         ResourceInfo ResourceInfo;
-
+        
         if (!LoadedResDict.TryGetValue(filePath,out ResourceInfo))
         {
             loadInfo = new LoadInfo();
@@ -316,6 +321,7 @@ public class ResourcesManager : SingltionCreateTinyUpdate<ResourcesManager>
                 }
             }
         }
+        //已经下载过了并下载完了
         else
         {
             if(callBack != null)
@@ -377,7 +383,24 @@ public class ResourcesManager : SingltionCreateTinyUpdate<ResourcesManager>
             }
 
             RemoveResoureceInfoList.Clear();
+            LoadedResDict.Clear();
         }
+    }
+    
+    public bool DestroyAsset(string filePath)
+    {
+        ResourceInfo resourceInfo;
+
+        if (LoadedResDict.TryGetValue(filePath,out resourceInfo))
+        {
+            resourceInfo.ReleaseReference();
+            resourceInfo.LoadObj = null;
+            LoadedResDict.Remove(filePath);
+
+            return true;
+        }
+
+        return false;
     }
     
     public override bool OnUpdate()

@@ -17,9 +17,10 @@ public class HeroManager : SingltionCreator<HeroManager>,IManagerBaseInterface
     public void OnDisable(params object[] package)
     {
         EventMsgCenter.UnRegisterNetMsg(NetEventName.TeamChange,OnNetTeamChangeResp);
-        
         Clear();
     }
+
+    private int currentTeam;
 
     public class PropertyItem
     {
@@ -44,6 +45,11 @@ public class HeroManager : SingltionCreator<HeroManager>,IManagerBaseInterface
 
     private Dictionary<Int32,HeroInfo> heroList;
     private Dictionary<Int32,HeroTeam> fightteamList;
+
+    public Dictionary<Int32, HeroInfo> GetHeroList()
+    {
+        return heroList;
+    }
 
     public void Clear()
     {
@@ -78,6 +84,11 @@ public class HeroManager : SingltionCreator<HeroManager>,IManagerBaseInterface
     
     public void AddTeam(int teamID, FightHeroTeamInfo teamInfo)
     {
+        if (currentTeam == 0 )
+        {
+            currentTeam = teamID;
+        }
+        
         HeroTeam heroTeam = new HeroTeam();
         heroTeam.teamID = teamID;
         heroTeam.heroList = new List<long>();
@@ -105,5 +116,15 @@ public class HeroManager : SingltionCreator<HeroManager>,IManagerBaseInterface
                 fightteamList[thr.TeamId].heroList.Add(heroID);
             }
         }
+    }
+
+    public HeroTeam GetCurrentTeam()
+    {
+        if (fightteamList.ContainsKey(currentTeam))
+        {
+            return fightteamList[currentTeam];
+        }
+
+        return null;
     }
 }

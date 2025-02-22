@@ -13,7 +13,18 @@ public class MainLevel : MonoBehaviour
      public Transform Canvas;
 
      public GameObject CurrentSystemUI = null;
-     
+
+     public void Start()
+     {
+          GameDataManager.AccountInfo role = GameDataManager.Instance.GetRole();
+
+          if (role != null)
+          {
+               Gold.text = Utility.GetNumberToString(role.gold);
+               Stone.text = Utility.GetNumberToString(role.stone);
+          }
+     }
+
      public void Fight()
      {
           AudioManager.GetInstance().PlaySound();
@@ -37,7 +48,6 @@ public class MainLevel : MonoBehaviour
      public void Role()
      {
           AudioManager.GetInstance().PlaySound();
-
           LoadUI(SystemID.Hero);
      }
 
@@ -88,6 +98,7 @@ public class MainLevel : MonoBehaviour
           {
                CurrentSystemUI = (GameObject)resourceInfo.CloneGameObject(Vector3.zero,quaternion.identity);
                CurrentSystemUI.transform.parent = Canvas;
+               CurrentSystemUI.SetActive(true);
           }
      }
 }

@@ -1,0 +1,62 @@
+[
+    {
+        "ResID": 10101,
+        "IconName": "head_temp",
+        "ResPath": "Prefab/Actor/Role/Player"
+    },
+    {
+        "ResID": 10102,
+        "IconName": "head_temp",
+        "ResPath": "Prefab/Actor/Role/Player"
+    },
+    {
+        "ResID": 10103,
+        "IconName": "head_temp",
+        "ResPath": "Prefab/Actor/Role/Player"
+    },
+    {
+        "ResID": 10104,
+        "IconName": "head_temp",
+        "ResPath": "Prefab/Actor/Role/Player"
+    },
+    {
+        "ResID": 10105,
+        "IconName": "head_temp",
+        "ResPath": "Prefab/Actor/Role/Player"
+    },
+    {
+        "ResID": 10106,
+        "IconName": "head_temp",
+        "ResPath": "Prefab/Actor/Role/Player"
+    },
+    {
+        "ResID": 10201,
+        "IconName": "head_temp",
+        "ResPath": "Prefab/Actor/Role/Player"
+    },
+    {
+        "ResID": 10202,
+        "IconName": "head_temp",
+        "ResPath": "Prefab/Actor/Role/Player"
+    },
+    {
+        "ResID": 10203,
+        "IconName": "head_temp",
+        "ResPath": "Prefab/Actor/Role/Player"
+    },
+    {
+        "ResID": 10204,
+        "IconName": "head_temp",
+        "ResPath": "Prefab/Actor/Role/Player"
+    },
+    {
+        "ResID": 10205,
+        "IconName": "head_temp",
+        "ResPath": "Prefab/Actor/Role/Player"
+    },
+    {
+        "ResID": 10206,
+        "IconName": "head_temp",
+        "ResPath": "Prefab/Actor/Role/Player"
+    }
+]

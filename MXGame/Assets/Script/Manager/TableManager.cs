@@ -16,6 +16,7 @@ public class TableManager : SingltionCreator<TableManager>, IManagerBaseInterfac
     public TableManager()
     {
         LoadTableList = new Dictionary<string, TableInfo>();
+        LoadTable("HeroTable");
     }
 
     public void OnDisable(params object[] package)
@@ -53,7 +54,7 @@ public class TableManager : SingltionCreator<TableManager>, IManagerBaseInterfac
         LoadTableList.Clear();
     }
     
-    string GetTable(string filePath)
+    public string GetTableText(string filePath)
     {
         if (LoadTableList.ContainsKey(filePath))
         {
@@ -69,6 +70,6 @@ public class TableManager : SingltionCreator<TableManager>, IManagerBaseInterfac
 
         return null;
     }
-    
+
     private Dictionary<string, TableInfo> LoadTableList;
 }

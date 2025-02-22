@@ -8,6 +8,7 @@ public enum EventName
 	LoadingOver = 1,
 	GameOver = 2,
 	Connected = 3,
+	HeroSelect = 4,
 }
 
 public enum NetEventName

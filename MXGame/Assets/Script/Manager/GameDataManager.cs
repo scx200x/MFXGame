@@ -11,6 +11,8 @@ public class GameDataManager : SingltionCreator<GameDataManager>
         public Int32 gameTime;
         public Int32 difficult;
         public bool isUse;
+        public int gold;
+        public int stone;
     }
     
     
@@ -55,5 +57,18 @@ public class GameDataManager : SingltionCreator<GameDataManager>
                 accountInfo.isUse = false;
             }
         }
+    }
+
+    public AccountInfo GetRole()
+    {
+        foreach (var accountInfo in AccountInfos)
+        {
+            if (accountInfo.isUse)
+            {
+                return accountInfo;
+            }
+        }
+
+        return null;
     }
 }

@@ -1,0 +1,74 @@
+[
+    {
+        "ResID": 10101,
+        "IconName": "head_temp",
+        "ResPath": "Prefab/Actor/Role/Hero1",
+        "HeroPanel": "Actor/Hero1"
+    },
+    {
+        "ResID": 10102,
+        "IconName": "head_temp",
+        "ResPath": "Prefab/Actor/Role/Hero2",
+        "HeroPanel": "Actor/Hero2"
+    },
+    {
+        "ResID": 10103,
+        "IconName": "head_temp",
+        "ResPath": "Prefab/Actor/Role/Hero3",
+        "HeroPanel": "Actor/Hero3"
+    },
+    {
+        "ResID": 10104,
+        "IconName": "head_temp",
+        "ResPath": "Prefab/Actor/Role/Hero4",
+        "HeroPanel": "Actor/Hero4"
+    },
+    {
+        "ResID": 10105,
+        "IconName": "head_temp",
+        "ResPath": "Prefab/Actor/Role/Hero5",
+        "HeroPanel": "Actor/Hero5"
+    },
+    {
+        "ResID": 10106,
+        "IconName": "head_temp",
+        "ResPath": "Prefab/Actor/Role/Hero6",
+        "HeroPanel": "Actor/Hero6"
+    },
+    {
+        "ResID": 10201,
+        "IconName": "head_temp",
+        "ResPath": "Prefab/Actor/Role/Hero7",
+        "HeroPanel": "Actor/Hero7"
+    },
+    {
+        "ResID": 10202,
+        "IconName": "head_temp",
+        "ResPath": "Prefab/Actor/Role/Hero8",
+        "HeroPanel": "Actor/Hero8"
+    },
+    {
+        "ResID": 10203,
+        "IconName": "head_temp",
+        "ResPath": "Prefab/Actor/Role/Hero9",
+        "HeroPanel": "Actor/Hero9"
+    },
+    {
+        "ResID": 10204,
+        "IconName": "head_temp",
+        "ResPath": "Prefab/Actor/Role/Hero10",
+        "HeroPanel": "Actor/Hero10"
+    },
+    {
+        "ResID": 10205,
+        "IconName": "head_temp",
+        "ResPath": "Prefab/Actor/Role/Hero11",
+        "HeroPanel": "Actor/Hero11"
+    },
+    {
+        "ResID": 10206,
+        "IconName": "head_temp",
+        "ResPath": "Prefab/Actor/Role/Hero12",
+        "HeroPanel": "Actor/Hero12"
+    }
+]

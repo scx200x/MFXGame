@@ -1,0 +1,38 @@
+[
+    {
+        "skillcombineid": 90011,
+        "name": "坦克1普攻",
+        "icon": "skill_temp01",
+        "desc": "对前排2个敌人进行攻击，造成72%伤害并获得等量HP"
+    },
+    {
+        "skillcombineid": 90012,
+        "name": "坦克1绝招",
+        "icon": "skill_temp02",
+        "desc": "对全体敌人造成80%伤害，并且有40%概率进行嘲讽，使敌人强制对自己发起普通攻击2回合"
+    },
+    {
+        "skillcombineid": 90013,
+        "name": "坦克1被动",
+        "icon": "skill_temp03",
+        "desc": "伤害增加10%"
+    },
+    {
+        "skillcombineid": 90021,
+        "name": "剑客1普攻",
+        "icon": "skill_temp04",
+        "desc": "对目标发起攻击3次，每次造成68%的伤害，可造成暴击，并且有20%概率为敌人增加破甲效果"
+    },
+    {
+        "skillcombineid": 90022,
+        "name": "剑客1绝招",
+        "icon": "skill_temp05",
+        "desc": "破甲效果：受到物理攻击增加10%，持续2回合"
+    },
+    {
+        "skillcombineid": 90023,
+        "name": "剑客1被动",
+        "icon": "skill_temp06",
+        "desc": "暴击增加2%"
+    }
+]

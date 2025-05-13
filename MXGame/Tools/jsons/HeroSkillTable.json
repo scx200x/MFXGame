@@ -1,86 +1,50 @@
 [
     {
-        "heroid": 10101,
-        "normal": 90011,
-        "super": 90012,
-        "passive1": 90013,
+        "id": 1001,
+        "rank": 3,
+        "normal": 0,
+        "superid": 0,
+        "passive1": 0,
         "passive2": 0
     },
     {
-        "heroid": 10102,
-        "normal": 90011,
-        "super": 90012,
-        "passive1": 90013,
+        "id": 1002,
+        "rank": 3,
+        "normal": 0,
+        "superid": 0,
+        "passive1": 0,
         "passive2": 0
     },
     {
-        "heroid": 10103,
-        "normal": 90011,
-        "super": 90012,
-        "passive1": 90013,
+        "id": 1003,
+        "rank": 4,
+        "normal": 0,
+        "superid": 0,
+        "passive1": 0,
         "passive2": 0
     },
     {
-        "heroid": 10104,
-        "normal": 90011,
-        "super": 90012,
-        "passive1": 90013,
+        "id": 1004,
+        "rank": 4,
+        "normal": 0,
+        "superid": 0,
+        "passive1": 0,
         "passive2": 0
     },
     {
-        "heroid": 10105,
-        "normal": 90011,
-        "super": 90012,
-        "passive1": 90013,
+        "id": 1005,
+        "rank": 6,
+        "normal": 0,
+        "superid": 0,
+        "passive1": 0,
         "passive2": 0
     },
     {
-        "heroid": 10106,
-        "normal": 90011,
-        "super": 90012,
-        "passive1": 90013,
-        "passive2": 0
-    },
-    {
-        "heroid": 10201,
-        "normal": 90021,
-        "super": 90022,
-        "passive1": 90023,
-        "passive2": 0
-    },
-    {
-        "heroid": 10202,
-        "normal": 90021,
-        "super": 90022,
-        "passive1": 90023,
-        "passive2": 0
-    },
-    {
-        "heroid": 10203,
-        "normal": 90021,
-        "super": 90022,
-        "passive1": 90023,
-        "passive2": 0
-    },
-    {
-        "heroid": 10204,
-        "normal": 90021,
-        "super": 90022,
-        "passive1": 90023,
-        "passive2": 0
-    },
-    {
-        "heroid": 10205,
-        "normal": 90021,
-        "super": 90022,
-        "passive1": 90023,
-        "passive2": 0
-    },
-    {
-        "heroid": 10206,
-        "normal": 90021,
-        "super": 90022,
-        "passive1": 90023,
+        "id": 1006,
+        "rank": 6,
+        "normal": 0,
+        "superid": 0,
+        "passive1": 0,
         "passive2": 0
     }
 ]
